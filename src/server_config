@@ -1,0 +1,30 @@
+server {
+  port 8080;
+
+  threads 10;
+
+  location /static StaticHandler {
+  root ./folder1;
+  }
+
+  location /static1 StaticHandler {
+  root ./folder2;
+  }
+
+  location /static2 StaticHandler {
+  root ./folder2;
+  }
+
+  location /echo EchoHandler {
+  }
+
+  location /api CrudHandler {
+    data_path /tmp/crud;
+  }
+
+  location /sleep SleepHandler {
+  }
+
+  location /health HealthHandler {
+  }
+}

@@ -1,0 +1,17 @@
+HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: 9
+
+{"id": 0}
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 16
+
+{"Brand":"Nike"}
+
+HTTP/1.1 404 Not Found
+Content-Type: text/plain
+Content-Length: 42
+
+Requested resource /Shoes/0 does not exist

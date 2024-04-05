@@ -1,0 +1,16 @@
+server {
+ port 8080;
+
+  location /static1/ StaticHandler {
+  root ./folder1;
+  }
+
+  location /static2 StaticHandler {
+  root ./folder2;
+  }
+
+  location /echo EchoHandler {
+  }
+
+  threads 0;
+}

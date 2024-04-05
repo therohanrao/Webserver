@@ -1,0 +1,40 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    docker pull gcr.io/$PROJECT_ID/teami-net:base || exit 0
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/base.Dockerfile',
+    '-t', 'teami-net:base',
+    '-t', 'gcr.io/$PROJECT_ID/teami-net:base',
+    '--cache-from', 'gcr.io/$PROJECT_ID/teami-net:base',
+    '.'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/teami-net:base']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/cloud.Dockerfile',
+    '-t', 'gcr.io/$PROJECT_ID/teami-net:latest',
+    '.'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/cloud.Dockerfile',
+    '-t', 'gcr.io/$PROJECT_ID/teami-net:assign7',
+    '.'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-f', 'docker/coverage.Dockerfile',
+    '-t', 'gcr.io/$PROJECT_ID/teami-net:coverage',
+    '.'
+ ]
+images: ['gcr.io/$PROJECT_ID/teami-net:base', 'gcr.io/$PROJECT_ID/teami-net:latest', 'gcr.io/$PROJECT_ID/teami-net:assign7']
